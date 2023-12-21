@@ -1,6 +1,6 @@
-package com.casey.thesortinghat.model
+package com.casey.thesortinghat.dto
 
-data class Elixir(
+data class ElixirDTO(
     val name: String,
     val effect: String,
     val sideEffects: String,

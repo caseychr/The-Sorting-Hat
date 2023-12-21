@@ -1,9 +1,18 @@
 package com.casey.thesortinghat.di
 
-import com.casey.thesortinghat.SortingHatRepository
-import com.casey.thesortinghat.CharacterViewModel
+import com.casey.thesortinghat.repository.CharacterRepository
+import com.casey.thesortinghat.repository.CharacterRepositoryImpl
+import com.casey.thesortinghat.viewmodel.CharacterViewModel
+import com.casey.thesortinghat.repository.HouseRepository
+import com.casey.thesortinghat.repository.HouseRepositoryImpl
+import com.casey.thesortinghat.repository.SpellsRepository
+import com.casey.thesortinghat.repository.SpellsRepositoryImpl
 import com.casey.thesortinghat.api.CharactersApi
 import com.casey.thesortinghat.api.WizardingWorldApi
+import com.casey.thesortinghat.repository.ElixirRepository
+import com.casey.thesortinghat.repository.ElixirRepositoryImpl
+import com.casey.thesortinghat.repository.WizardRepository
+import com.casey.thesortinghat.repository.WizardRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -53,12 +62,40 @@ class AppModule {
     fun provideCharacterRepository(
         charactersApi: CharactersApi,
         wizardingWorldApi: WizardingWorldApi
-    ): SortingHatRepository {
-        return SortingHatRepository(charactersApi, wizardingWorldApi)
+    ): CharacterRepository {
+        return CharacterRepositoryImpl(charactersApi, wizardingWorldApi)
     }
 
     @Provides
-    fun provideViewModel(repository: SortingHatRepository): CharacterViewModel {
+    fun provideSpellsRepository(
+        wizardingWorldApi: WizardingWorldApi
+    ): SpellsRepository {
+        return SpellsRepositoryImpl(wizardingWorldApi)
+    }
+
+    @Provides
+    fun provideHouseRepository(
+        wizardingWorldApi: WizardingWorldApi
+    ): HouseRepository {
+        return HouseRepositoryImpl(wizardingWorldApi)
+    }
+
+    @Provides
+    fun provideElixirRepository(
+        wizardingWorldApi: WizardingWorldApi
+    ): ElixirRepository {
+        return ElixirRepositoryImpl(wizardingWorldApi)
+    }
+
+    @Provides
+    fun provideWizardRepository(
+        wizardingWorldApi: WizardingWorldApi
+    ): WizardRepository {
+        return WizardRepositoryImpl(wizardingWorldApi)
+    }
+
+    @Provides
+    fun provideCharacterViewModel(repository: CharacterRepository): CharacterViewModel {
         return CharacterViewModel(repository)
     }
 }

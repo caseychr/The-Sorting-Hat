@@ -1,4 +1,4 @@
-package com.casey.thesortinghat
+package com.casey.thesortinghat.di
 
 import android.app.Application
 import com.casey.thesortinghat.di.AppComponent

@@ -1,7 +1,10 @@
-package com.casey.thesortinghat.model
+package com.casey.thesortinghat.dto
 
-data class Character(
+import com.squareup.moshi.Json
+
+data class CharacterDTO(
     val name: String, //view
+    @Json(name = "alternate_names")
     val alternateNames: List<String>, //view
     val species: String,
     val gender: String, // enum

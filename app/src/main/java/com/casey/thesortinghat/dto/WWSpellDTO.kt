@@ -1,6 +1,6 @@
-package com.casey.thesortinghat.model
+package com.casey.thesortinghat.dto
 
-data class WWSpell(
+data class WWSpellDTO(
     val id: String,
     val name: String,
     val incantation: String,

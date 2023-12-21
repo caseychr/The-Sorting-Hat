@@ -1,6 +1,6 @@
-package com.casey.thesortinghat.model
+package com.casey.thesortinghat.dto
 
-data class House(
+data class HouseDTO(
     val id: String,
     val name: String, //view
     val houseColors: String, //view

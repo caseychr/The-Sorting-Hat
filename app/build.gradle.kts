@@ -85,4 +85,6 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.48.1")
 
     implementation("com.github.bumptech.glide:compose:1.0.0-alpha.1")
+
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 }

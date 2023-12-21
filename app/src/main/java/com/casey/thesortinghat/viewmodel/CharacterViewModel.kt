@@ -1,12 +1,12 @@
-package com.casey.thesortinghat
+package com.casey.thesortinghat.viewmodel
 
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.casey.thesortinghat.model.Character
+import com.casey.thesortinghat.repository.CharacterRepository
+import com.casey.thesortinghat.dto.CharacterDTO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import javax.inject.Provider
 
 
 class CharacterViewModel @Inject constructor(
-    private val repository: SortingHatRepository
+    private val repository: CharacterRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -24,8 +24,8 @@ class CharacterViewModel @Inject constructor(
     fun getAllCharacters() {
         viewModelScope.launch {
             repository.getAllCharacters().fold(
-                ifLeft = { _uiState.value = UiState(State.Empty) },
-                ifRight = { _uiState.value = UiState(State.Success(it)) }
+                ifLeft = { _uiState.value = UiState(CharacterState.Empty) },
+                ifRight = { _uiState.value = UiState(CharacterState.Success(it)) }
             )
             //val characters = repository.getAllCharacters()
             //Log.i("CharacterViewModel", characters.toString())
@@ -33,14 +33,14 @@ class CharacterViewModel @Inject constructor(
     }
 
     data class UiState(
-        val state: State = State.Empty
+        val state: CharacterState = CharacterState.Empty
     )
 }
 
-sealed class State {
-    data class Success(val characters: List<Character>): State()
-    data class Error(val error: Error): State()
-    object Empty: State()
+sealed class CharacterState {
+    data class Success(val characters: List<CharacterDTO>): CharacterState()
+    data class Error(val error: Error): CharacterState()
+    object Empty: CharacterState()
 }
 
 inline fun <reified VM: ViewModel> ComponentActivity.viewModels(
